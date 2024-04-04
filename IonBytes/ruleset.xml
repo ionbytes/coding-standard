@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruleset name="IonBytesCodingStandard"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="../vendor/squizlabs/php_codesniffer/phpcs.xsd"
+>
+    <description>IonBytes Coding Standard</description>
+
+    <!-- args-->
+    <arg value="sp"/>
+    <arg name="colors"/>
+    <arg name="encoding" value="utf-8"/>
+    <arg name="extensions" value="php"/>
+    <arg name="tab-width" value="4"/>
+
+    <rule ref="PSR12" />
+
+    <rule ref="PSR2">
+        <exclude name="Squiz.Functions.MultiLineFunctionDeclaration.BraceOnSameLine" />
+    </rule>
+
+    <rule ref="PSR2.ControlStructures.ElseIfDeclaration.NotAllowed">
+        <type>error</type>
+    </rule>
+
+    <!-- Force PHP 7 param and return types to be lowercased. -->
+    <rule ref="Generic.PHP.LowerCaseType"/>
+
+    <!-- Forbid comments starting with # -->
+    <rule ref="PEAR.Commenting.InlineComment"/>
+
+    <!-- Checks that object operators are indented correctly. -->
+    <rule ref="PEAR.WhiteSpace.ObjectOperatorIndent"/>
+
+    <!-- Closing braces should be indented at the same level as the beginning of the scope. -->
+    <rule ref="PEAR.WhiteSpace.ScopeClosingBrace"/>
+
+    <rule ref="Generic.Commenting.Fixme"/>
+    <rule ref="Generic.Commenting.Todo"/>
+
+    <!-- All array elements must be indented with 4 spaces -->
+    <rule ref="Generic.Arrays.ArrayIndent"/>
+
+    <!-- Forbid array(...) -->
+    <rule ref="Generic.Arrays.DisallowLongArraySyntax"/>
+
+    <!-- Forbid duplicate class name across a project -->
+    <rule ref="Generic.Classes.DuplicateClassName"/>
+
+    <!-- Forbid empty statements -->
+    <rule ref="Generic.CodeAnalysis.EmptyStatement">
+        <!-- Allow empty catch -->
+        <exclude name="Generic.CodeAnalysis.EmptyStatement.DetectedCatch"/>
+    </rule>
+
+    <!-- Forbid final methods in final classes -->
+    <rule ref="Generic.CodeAnalysis.UnnecessaryFinalModifier"/>
+
+    <!-- Forbid define methods that only call the parent method -->
+    <rule ref="Generic.CodeAnalysis.UselessOverridingMethod"/>
+
+    <!-- All parameters in function signature must be used within the function. -->
+    <rule ref="Generic.CodeAnalysis.UnusedFunctionParameter"/>
+
+    <!-- Allow comments to run longer than 120 characters -->
+    <rule ref="Generic.Files.LineLength">
+        <properties>
+            <property name="ignoreComments" value="true"/>
+        </properties>
+    </rule>
+
+    <!-- There should only be one class defined in a file. -->
+    <rule ref="Generic.Files.OneClassPerFile"/>
+
+    <!-- There should only be one interface defined in a file. -->
+    <rule ref="Generic.Files.OneInterfacePerFile"/>
+
+    <!-- There should only be one class or interface or trait defined in a file. -->
+    <rule ref="Generic.Files.OneObjectStructurePerFile"/>
+
+    <!-- There should only be one trait defined in a file. -->
+    <rule ref="Generic.Files.OneTraitPerFile"/>
+
+    <!-- Unix-style line endings are preferred ("\n" instead of "\r\n"). -->
+    <rule ref="Generic.Files.LineEndings">
+        <properties>
+            <property name="eolChar" value="\n"/>
+        </properties>
+    </rule>
+
+    <rule ref="Generic.Functions.OpeningFunctionBraceKernighanRitchie" />
+
+    <!-- Force one space after a type cast -->
+    <rule ref="Generic.Formatting.SpaceAfterCast"/>
+
+    <!-- Forbid backtick operator -->
+    <rule ref="Generic.PHP.BacktickOperator"/>
+
+    <!-- Forbid any content before open tag -->
+    <rule ref="Generic.PHP.CharacterBeforePHPOpeningTag">
+        <type>error</type>
+        <severity>10</severity>
+    </rule>
+
+    <!-- Forbid deprecated functions -->
+    <rule ref="Generic.PHP.DeprecatedFunctions"/>
+
+    <!-- Forbid goto instruction -->
+    <rule ref="Generic.PHP.DiscourageGoto"/>
+
+    <!-- Forbid a bunch of functions -->
+    <rule ref="Generic.PHP.ForbiddenFunctions">
+        <properties>
+            <property name="forbiddenFunctions" type="array">
+                <element key="chop" value="rtrim"/>
+                <element key="close" value="closedir"/>
+                <element key="delete" value="unset"/>
+                <element key="doubleval" value="floatval"/>
+                <element key="fputs" value="fwrite"/>
+                <element key="ini_alter" value="ini_set"/>
+                <element key="is_double" value="is_float"/>
+                <element key="is_integer" value="is_int"/>
+                <element key="is_long" value="is_int"/>
+                <element key="is_real" value="is_float"/>
+                <element key="is_writeable" value="is_writable"/>
+                <element key="join" value="implode"/>
+                <element key="key_exists" value="array_key_exists"/>
+                <element key="pos" value="current"/>
+                <element key="show_source" value="highlight_file"/>
+                <element key="sizeof" value="count"/>
+                <element key="strchr" value="strstr"/>
+            </property>
+        </properties>
+    </rule>
+
+    <!-- Forbid php_sapi_name(), use PHP_SAPI -->
+    <rule ref="Generic.PHP.SAPIUsage"/>
+
+    <rule ref="Generic.Strings.UnnecessaryStringConcat">
+        <!-- But multiline is useful for readability -->
+        <properties>
+            <property name="allowMultiline" value="true"/>
+        </properties>
+    </rule>
+
+    <!-- Forbid merge conflict artifacts left -->
+    <rule ref="Generic.VersionControl.GitMergeConflict"/>
+    <!-- Forbid global functions -->
+    <rule ref="Squiz.Functions.GlobalFunction"/>
+
+    <!-- Force camelCase variables -->
+    <rule ref="Squiz.NamingConventions.ValidVariableName">
+        <exclude name="Squiz.NamingConventions.ValidVariableName.PrivateNoUnderscore" />
+    </rule>
+
+    <rule ref="Squiz.Commenting.FunctionComment">
+        <!-- Allow `@throws` without description -->
+        <exclude name="Squiz.Commenting.FunctionComment.EmptyThrows"/>
+        <!-- Does not work properly with PHP 7 / short-named types -->
+        <exclude name="Squiz.Commenting.FunctionComment.IncorrectParamVarName"/>
+        <!-- Does not support collections, i.e. `string[]` -->
+        <exclude name="Squiz.Commenting.FunctionComment.IncorrectTypeHint"/>
+        <!-- Forces incorrect types -->
+        <exclude name="Squiz.Commenting.FunctionComment.InvalidReturn"/>
+        <!-- Breaks with compound return types, i.e. `string|null` -->
+        <exclude name="Squiz.Commenting.FunctionComment.InvalidReturnNotVoid"/>
+        <!-- Breaks when all params are not documented -->
+        <exclude name="Squiz.Commenting.FunctionComment.InvalidTypeHint"/>
+        <!-- Doc comment is not required for every method -->
+        <exclude name="Squiz.Commenting.FunctionComment.Missing"/>
+        <!-- Do not require comments for `@param` -->
+        <exclude name="Squiz.Commenting.FunctionComment.MissingParamComment"/>
+        <!-- Do not require `@param` for all parameters -->
+        <exclude name="Squiz.Commenting.FunctionComment.MissingParamTag"/>
+        <!-- Do not require `@return` for void methods -->
+        <exclude name="Squiz.Commenting.FunctionComment.MissingReturn"/>
+        <!-- Comments don't have to be sentences -->
+        <exclude name="Squiz.Commenting.FunctionComment.ParamCommentFullStop"/>
+        <!-- Comments don't have to be sentences -->
+        <exclude name="Squiz.Commenting.FunctionComment.ParamCommentNotCapital"/>
+        <!-- Breaks when all params are not documented -->
+        <exclude name="Squiz.Commenting.FunctionComment.ParamNameNoMatch"/>
+        <!-- Doesn't respect inheritance -->
+        <exclude name="Squiz.Commenting.FunctionComment.ScalarTypeHintMissing"/>
+        <!-- Throws comments can start without a capital and doesn't need a full stop -->
+        <exclude name="PEAR.Commenting.FunctionComment.ThrowsNoFullStop"/>
+        <exclude name="PEAR.Commenting.FunctionComment.ThrowsNotCapital"/>
+        <!-- Doesn't work with self as typehint -->
+        <exclude name="Squiz.Commenting.FunctionComment.TypeHintMissing"/>
+        <!-- May use excessive whitespace to align comments after parameter names -->
+        <exclude name="Squiz.Commenting.FunctionComment.SpacingAfterParamName"/>
+        <!-- Adds space between intersection types -->
+        <exclude name="Squiz.Commenting.FunctionComment.SpacingAfterParamType"/>
+    </rule>
+
+    <!-- Forbid `AND` and `OR` -->
+    <rule ref="Squiz.Operators.ValidLogicalOperators"/>
+
+    <!-- Forbid `global` -->
+    <rule ref="Squiz.PHP.GlobalKeyword"/>
+
+    <!-- Forbid functions inside functions -->
+    <rule ref="Squiz.PHP.InnerFunctions"/>
+
+    <!-- Require PHP function calls in lowercase -->
+    <rule ref="Squiz.PHP.LowercasePHPFunctions"/>
+
+    <!-- Forbid dead code -->
+    <rule ref="Squiz.PHP.NonExecutableCode"/>
+
+    <!-- Force whitespace before and after concatenation -->
+    <rule ref="Squiz.Strings.ConcatenationSpacing">
+        <properties>
+            <property name="spacing" value="1"/>
+            <property name="ignoreNewlines" value="true"/>
+        </properties>
+    </rule>
+
+    <!-- Forbid strings in `"` unless necessary -->
+    <rule ref="Squiz.Strings.DoubleQuoteUsage">
+        <!-- Allow variables inside double-quoted strings -->
+        <exclude name="Squiz.Strings.DoubleQuoteUsage.ContainsVar"/>
+    </rule>
+
+    <rule ref="Squiz.Strings.DoubleQuoteUsage.ContainsVar">
+        <message>Variable "%s" not allowed in double-quoted string; use sprintf() or concatenation instead</message>
+    </rule>
+
+    <!-- Require space around logical operators -->
+    <rule ref="Squiz.WhiteSpace.LogicalOperatorSpacing"/>
+
+    <!-- Forbid spaces around `->` operator -->
+    <rule ref="Squiz.WhiteSpace.ObjectOperatorSpacing">
+        <properties>
+            <property name="ignoreNewlines" value="true"/>
+        </properties>
+    </rule>
+
+    <!-- Forbid spaces before semicolon `;` -->
+    <rule ref="Squiz.WhiteSpace.SemicolonSpacing"/>
+
+    <!-- Forbid superfluous whitespaces -->
+    <rule ref="Squiz.WhiteSpace.SuperfluousWhitespace">
+        <properties>
+            <!-- turned on by PSR2 -> turning back off -->
+            <property name="ignoreBlankLines" value="false"/>
+        </properties>
+    </rule>
+
+    <rule ref="Squiz.WhiteSpace.SuperfluousWhitespace.EmptyLines">
+        <!-- turned off by PSR2 -> turning back on -->
+        <severity>5</severity>
+    </rule>
+</ruleset>
