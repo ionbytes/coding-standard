@@ -1,0 +1,10 @@
+# ide
+/.idea/
+/.fleet/
+/.run/
+
+#composer
+composer.lock
+/composer.phar
+/auth.json
+/vendor/*
